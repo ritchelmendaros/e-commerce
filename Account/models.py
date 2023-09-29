@@ -21,7 +21,7 @@ class Customer(User):
 
 
 class Address(models.Model):
-    address_id = models.BigAutoField()
+    address_id = models.BigAutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
 
