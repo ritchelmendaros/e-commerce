@@ -1,6 +1,5 @@
 from django.db import models
 from Account.models import Supplier, Customer
-from Order.models import OrderItem
 
 
 class Category(models.Model):
@@ -12,7 +11,7 @@ class Product(models.Model):
     product_id = models.BigAutoField(primary_key=True)
     category_id = models.ForeignKey(Category, on_delete=models.SET_NULL)
     user_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-    order_item = models.ForeignKey(OrderItem, on_delete=models.SET_NULL)
+    order_item = models.ForeignKey('Order.OrderItem', on_delete=models.SET_NULL)
     product_name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     price = models.FloatField(default=0)
