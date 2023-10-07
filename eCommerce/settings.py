@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'Payment',
     'Product',
     'Review',
+    'Ticket',
 
     # Django default
     'django.contrib.admin',

@@ -1,4 +1,5 @@
 from django.db import models
+from Ticket.models import CustomerTicket
 
 
 class User(models.Model):
@@ -22,11 +23,16 @@ class Customer(User):
 
 class Address(models.Model):
     address_id = models.BigAutoField(primary_key=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, models.SET_NULL, null=True)
     address = models.CharField(max_length=50)
 
 
 class Courier(User):
     courier_name = models.CharField(max_length=50)
     fee = models.FloatField()
+
+
+class CustomerSupport(User):
+    support_name = models.CharField(max_length=50)
+    ticket_id = models.ForeignKey(CustomerTicket, on_delete=models.CASCADE)
 

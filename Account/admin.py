@@ -6,5 +6,6 @@ admin.site.register(Customer)
 admin.site.register(Supplier)
 admin.site.register(Courier)
 admin.site.register(Address)
+admin.site.register(CustomerSupport)
 
 
