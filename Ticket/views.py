@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
-from .forms import CustomerSupport
+from .forms import CustomerSupportForm
 
-def my_view(request):
+
+def CustomerSupportView(request):
     if request.method == 'POST':
-        form = CustomerSupport(request.POST)
+        form = CustomerSupportForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('success_url')
     else:
-        form = CustomerSupport()
+        form = CustomerSupportForm()
     return render(request, 'ticket_template.html', {'form': form})
