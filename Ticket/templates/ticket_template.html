@@ -7,7 +7,17 @@
 <body>
     <form method="post">
     {% csrf_token %}
-    {{ form.email }}
+        {{ form.user_id.label_tag }} {{ form.user_id }}
+        <br>
+        {{ form.username.label_tag }} {{ form.username }}
+        <br>
+        {{ form.password.label_tag }} {{ form.password }}
+        <br>
+        {{ form.email.label_tag }} {{ form.email }}
+        <br>
+        {{ form.mobile_number.label_tag }} {{ form.mobile_number }}
+        <br>
+        {{ form.address.label_tag }} {{ form.address }}
     <button type="submit">Submit</button>
 </form>
 
