@@ -7,7 +7,7 @@ class CustomerSupportFormReg(ModelForm):
     user_id = forms.CharField(widget=forms.TextInput)
     username = forms.CharField(widget=forms.TextInput)
     password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.CharField(widget=forms.EmailField)
+    email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.TextInput)
     address = forms.CharField(widget=forms.TextInput)
 
