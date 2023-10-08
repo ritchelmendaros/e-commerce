@@ -10,6 +10,7 @@ class CustomerSupportFormReg(ModelForm):
     email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.TextInput)
     address = forms.CharField(widget=forms.TextInput)
+    type = forms.CharField(widget=forms.TextInput)
 
     class Meta:
         model=CustomerSupport

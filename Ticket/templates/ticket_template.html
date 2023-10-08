@@ -5,20 +5,22 @@
     <title>Customer Support Registration</title>
 </head>
 <body>
+    <h2>Customer Support Registration</h2>
     <form method="post">
     {% csrf_token %}
         {{ form.user_id.label_tag }} {{ form.user_id }}
-        <br>
+        <br><br>
         {{ form.username.label_tag }} {{ form.username }}
-        <br>
+        <br><br>
         {{ form.password.label_tag }} {{ form.password }}
-        <br>
+        <br><br>
         {{ form.email.label_tag }} {{ form.email }}
-        <br>
+        <br><br>
         {{ form.mobile_number.label_tag }} {{ form.mobile_number }}
-        <br>
+        <br><br>
         {{ form.address.label_tag }} {{ form.address }}
-    <button type="submit">Submit</button>
+        <br><br>
+        <button type="submit"><b>Submit</b></button>
 </form>
 
 </body>
