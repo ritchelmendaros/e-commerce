@@ -8,8 +8,6 @@
     <h2>Customer Support Registration</h2>
     <form method="post">
     {% csrf_token %}
-        {{ form.user_id.label_tag }} {{ form.user_id }}
-        <br><br>
         {{ form.username.label_tag }} {{ form.username }}
         <br><br>
         {{ form.password.label_tag }} {{ form.password }}
@@ -21,6 +19,8 @@
         {{ form.address.label_tag }} {{ form.address }}
         <br><br>
         {{ form.type.label_tag }} {{ form.type }}
+        <br><br>
+        {{ form.support_name.label_tag }} {{ form.support_name }}
         <br><br>
         <button type="submit"><b>Submit</b></button>
 </form>

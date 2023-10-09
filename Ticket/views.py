@@ -9,4 +9,4 @@ def customer_support_registration_view(request):
             return redirect('success_url')
     else:
         form = CustomerSupportFormReg()
-    return render(request, 'ticket_template.html', {'form': form})
+    return render(request, 'ticket_registration.html', {'form': form})
