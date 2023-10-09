@@ -8,9 +8,7 @@ def customer_support_registration_view(request):
     if request.method == 'POST':
         form = CustomerSupportFormReg(request.POST)
         if form.is_valid():
-            customer_support = form.save(commit=False)
-            customer_support.address = form.cleaned_data['address']
-            customer_support.save()
+            form.save()
             return redirect('customer_support_login')
     else:
         form = CustomerSupportFormReg()
@@ -26,8 +24,12 @@ def customer_support_login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('profile')  # Redirect to the profile page or another desired page
+                return redirect('customer_support_index')
     else:
         form = AuthenticationForm()
 
     return render(request, 'ticket_login.html', {'form': form})
+
+
+def customer_support_index(request):
+    return render(request, 'ticket_index.html')
