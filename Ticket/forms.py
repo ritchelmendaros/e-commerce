@@ -4,7 +4,6 @@ from Account.models import CustomerSupport
 
 
 class CustomerSupportFormReg(ModelForm):
-    user_id = forms.CharField(widget=forms.TextInput)
     username = forms.CharField(widget=forms.TextInput)
     password = forms.CharField(widget=forms.PasswordInput)
     email = forms.EmailField(widget=forms.EmailInput)
