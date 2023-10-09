@@ -9,9 +9,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.username.label_tag }} {{ form.username }}
-        <br><br>
+        <br><br><br>
         {{ form.password.label_tag }} {{ form.password }}
-        <br><br>
+        <br><br><br>
         <button type="submit"><b>Login</b></button>
     </form>
 </body>
