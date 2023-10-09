@@ -12,8 +12,9 @@ class CustomerSupportFormReg(ModelForm):
     type = forms.ChoiceField(choices=User.type_choices)
     support_name = forms.CharField(widget=forms.TextInput)
 
-
     class Meta:
-        model=CustomerSupport
-        fields=['user_id', 'username','password','email','mobile_number', 'address', 'type', 'support_name']
+        model = CustomerSupport
+        fields = ['user_id', 'username', 'password', 'email', 'mobile_number', 'address', 'type', 'support_name']
+
+
 

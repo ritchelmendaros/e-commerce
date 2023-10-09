@@ -9,12 +9,17 @@ class User(models.Model):
     email = models.EmailField()
     mobile_number = models.CharField(max_length=20)
     user_address = models.CharField(max_length=50)
-    type = models.CharField(max_length=2, default="CS")
+    type_choices = [
+        ('CS', 'Customer Support'),
+        ('S', 'Supplier'),
+        ('CU', 'Customer'),
+        ('CO', 'Courier'),
+    ]
+    type = models.CharField(max_length=2, choices=type_choices)
 
 
 class Supplier(User):
     company_name = models.CharField(max_length=50)
-
 
 class Customer(User):
     first_name = models.CharField(max_length=20)

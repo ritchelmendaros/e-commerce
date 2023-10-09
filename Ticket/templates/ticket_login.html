@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Customer Support Login</title>
 </head>
 <body>
-
+    <h1>Customer Support Login</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.username.label_tag }} {{ form.username }}
+        <br><br>
+        {{ form.password.label_tag }} {{ form.password }}
+        <br><br>
+        <button type="submit"><b>Login</b></button>
+    </form>
 </body>
 </html>
