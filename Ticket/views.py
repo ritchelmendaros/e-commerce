@@ -8,8 +8,10 @@ def customer_support_registration_view(request):
     if request.method == 'POST':
         form = CustomerSupportFormReg(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('ticket_login.html')
+            customer_support = form.save(commit=False)
+            customer_support.address = form.cleaned_data['address']
+            customer_support.save()
+            return redirect('customer_support_login')
     else:
         form = CustomerSupportFormReg()
     return render(request, 'ticket_registration.html', {'form': form})
