@@ -12,7 +12,7 @@ def customer_support_registration_view(request):
             return redirect('customer_support_login')
     else:
         form = CustomerSupportFormReg()
-    return render(request, 'ticket_registration.html', {'form': form})
+    return render(request, 'ticket_supportregistration.html', {'form': form})
 
 
 def customer_support_login_view(request):
@@ -28,8 +28,8 @@ def customer_support_login_view(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, 'ticket_login.html', {'form': form})
+    return render(request, 'ticket_supportlogin.html', {'form': form})
 
 
 def customer_support_index(request):
-    return render(request, 'ticket_index.html')
+    return render(request, 'ticket_supportindex.html')
