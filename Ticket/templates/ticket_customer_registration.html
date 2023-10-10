@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration | Customer</title>
 </head>
 <body>
-
+    <h2>Customer Registration</h2>
+    <form method="post">
+    {% csrf_token %}
+        {{ form.username.label_tag }} {{ form.username }}
+        <br><br>
+        {{ form.password.label_tag }} {{ form.password }}
+        <br><br>
+        {{ form.first_name.label_tag }} {{ form.first_name }}
+        <br><br>
+        {{ form.last_name.label_tag }} {{ form.last_name }}
+        <br><br>
+        {{ form.email.label_tag }} {{ form.email }}
+        <br><br>
+        {{ form.mobile_number.label_tag }} {{ form.mobile_number }}
+        <br><br>
+        {{ form.user_address.label_tag }} {{ form.user_address }}
+        <br><br>
+        {{ form.user_type.label_tag }} {{ form.user_type }}
+        <br><br>
+        {{ form.age.label_tag }} {{ form.age }}
+        <br><br>
+        <button type="submit"><b>Submit</b></button>
+    </form>
 </body>
 </html>

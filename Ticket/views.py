@@ -42,5 +42,25 @@ def customer_registration_view(request):
             form.save()
             return redirect('customer_support_login')
     else:
-        form = CustomerSupportFormReg()
-    return render(request, 'ticket_support_registration.html', {'form': form})
+        form = CustomerFormReg()
+    return render(request, 'ticket_customer_registration.html', {'form': form})
+
+
+def customer_login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('customer_index')
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'ticket_customer_login.html', {'form': form})
+
+
+def customer_index(request):
+    return render(request, 'ticket_customer_index.html')

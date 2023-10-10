@@ -11,12 +11,13 @@ class CustomerSupportFormReg(ModelForm):
     email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.TextInput)
     user_address = forms.CharField(widget=forms.TextInput)
-    user_type = forms.ChoiceField(choices=User.type_choices)
+    user_type = forms.ChoiceField(choices=User.type_choices, initial='CS')
     support_name = forms.CharField(widget=forms.TextInput)
 
     class Meta:
         model = CustomerSupport
-        fields = ['user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address', 'user_type', 'support_name']
+        fields = ['username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address',
+                  'user_type', 'support_name']
 
 
 class CustomerFormReg(ModelForm):
@@ -27,12 +28,11 @@ class CustomerFormReg(ModelForm):
     email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.TextInput)
     user_address = forms.CharField(widget=forms.TextInput)
-    user_type = forms.ChoiceField(choices=User.type_choices)
-    age = forms.IntegerField(widget=forms.NumberInput)
+    user_type = forms.ChoiceField(choices=User.type_choices, initial='CU')
+    age = forms.IntegerField(widget=forms.NumberInput, initial=0)
 
     class Meta:
         model = Customer
-        fields = ['user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address', 'user_type', 'age']
-
-
+        fields = ['username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address',
+                  'user_type', 'age']
 
