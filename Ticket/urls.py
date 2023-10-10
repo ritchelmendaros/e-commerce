@@ -5,8 +5,8 @@ from .views import (customer_support_registration_view, customer_support_login_v
 urlpatterns = [
     path('customer-support-registration/', customer_support_registration_view, name='customer_support_registration'),
     path('customer-support-login/', customer_support_login_view, name='customer_support_login'),
-    path('customer-support-index', customer_support_index, name='customer_support_index'),
+    path('customer-support-index/', customer_support_index, name='customer_support_index'),
     path('customer-registration/', customer_registration_view, name='customer_registration'),
     path('customer-login/', customer_login_view, name='customer_login'),
-    path('customer-index', customer_index, name='customer_index'),
+    path('customer-index/', customer_index, name='customer_index'),
 ]

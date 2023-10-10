@@ -2,31 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration | Customer Support</title>
+    <title style="font-size: 24px; font-weight: bold; font-family: 'Poppins', sans-serif;">Registration | Customer Support</title>
+    <style>
+        body {
+            background-color: #E7EFE1;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h2 {
+            margin-top: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            color: #475b4d;
+        }
+
+        form {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-size: 16px;
+            width: 130px; /* Fixed width for labels */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input, select {
+            flex: 1;
+            padding: 4px;
+            border: 1px solid gray;
+            border-radius: 10px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            height: 30px;
+            font-size: 14px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            width: 35%;
+            height: 40px;
+            border: none;
+            background: #475b4d;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
 <body>
     <h2>Customer Support Registration</h2>
     <form method="post">
     {% csrf_token %}
-        {{ form.username.label_tag }} {{ form.username }}
-        <br><br>
-        {{ form.password.label_tag }} {{ form.password }}
-        <br><br>
-        {{ form.first_name.label_tag }} {{ form.first_name }}
-        <br><br>
-        {{ form.last_name.label_tag }} {{ form.last_name }}
-        <br><br>
-        {{ form.email.label_tag }} {{ form.email }}
-        <br><br>
-        {{ form.mobile_number.label_tag }} {{ form.mobile_number }}
-        <br><br>
-        {{ form.user_address.label_tag }} {{ form.user_address }}
-        <br><br>
-        {{ form.user_type.label_tag }} {{ form.user_type }}
-        <br><br>
-        {{ form.support_name.label_tag }} {{ form.support_name }}
-        <br><br>
-        <button type="submit"><b>Submit</b></button>
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+        </div>
+        <div class="form-group">
+            <label for="id_first_name">First Name:</label>
+            {{ form.first_name }}
+        </div>
+        <div class="form-group">
+            <label for="id_last_name">Last Name:</label>
+            {{ form.last_name }}
+        </div>
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="id_mobile_number">Mobile Number:</label>
+            {{ form.mobile_number }}
+        </div>
+        <div class="form-group">
+            <label for="id_user_address">User Address:</label>
+            {{ form.user_address }}
+        </div>
+        <div class="form-group">
+            <label for="id_user_type">User Type:</label>
+            {{ form.user_type }}
+        </div>
+        <div class="form-group">
+            <label for="id_support_name">Support Name:</label>
+            {{ form.support_name }}
+        </div>
+        <div class="button-container">
+            <button type="submit"><b>Submit</b></button>
+        </div>
     </form>
 </body>
 </html>
