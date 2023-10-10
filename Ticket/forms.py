@@ -19,4 +19,20 @@ class CustomerSupportFormReg(ModelForm):
         fields = ['user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address', 'user_type', 'support_name']
 
 
+class CustomerFormReg(ModelForm):
+    username = forms.CharField(widget=forms.TextInput)
+    password = forms.CharField(widget=forms.PasswordInput)
+    first_name = forms.CharField(widget=forms.TextInput)
+    last_name = forms.CharField(widget=forms.TextInput)
+    email = forms.EmailField(widget=forms.EmailInput)
+    mobile_number = forms.CharField(widget=forms.TextInput)
+    user_address = forms.CharField(widget=forms.TextInput)
+    user_type = forms.ChoiceField(choices=User.type_choices)
+    age = forms.IntegerField(widget=forms.NumberInput)
+
+    class Meta:
+        model = CustomerSupport
+        fields = ['user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address', 'user_type', 'age']
+
+
 
