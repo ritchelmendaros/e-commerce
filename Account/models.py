@@ -56,7 +56,7 @@ class Courier(User):
 
 class CustomerSupport(User):
     support_name = models.CharField(max_length=50)
-    ticket_id = models.ForeignKey(CustomerTicket, on_delete=models.CASCADE, null=True)
+    ticket_id = models.ForeignKey(CustomerTicket, models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = 'Customer Support'
