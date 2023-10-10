@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from Account.models import CustomerSupport, User
+from Account.models import CustomerSupport, User, Customer
 
 
 class CustomerSupportFormReg(ModelForm):
@@ -31,7 +31,7 @@ class CustomerFormReg(ModelForm):
     age = forms.IntegerField(widget=forms.NumberInput)
 
     class Meta:
-        model = CustomerSupport
+        model = Customer
         fields = ['user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address', 'user_type', 'age']
 
 

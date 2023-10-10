@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import CustomerSupportFormReg
+from .forms import CustomerSupportFormReg, CustomerFormReg
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -33,3 +33,14 @@ def customer_support_login_view(request):
 
 def customer_support_index(request):
     return render(request, 'ticket_support_index.html')
+
+
+def customer_registration_view(request):
+    if request.method == 'POST':
+        form = CustomerFormReg(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('customer_support_login')
+    else:
+        form = CustomerSupportFormReg()
+    return render(request, 'ticket_support_registration.html', {'form': form})
