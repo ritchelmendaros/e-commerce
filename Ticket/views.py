@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import CustomerSupportFormReg, CustomerFormReg, CustomerLogin, CustomerSupportLogin
+from .forms import CustomerSupportFormReg, CustomerFormReg, CustomerLogin, CustomerSupportLogin, TicketLogin
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -11,7 +11,7 @@ class CustomerSupportRegistrationView(View):
     form_class = CustomerSupportFormReg
 
     def get(self, request):
-        customer = CustomerFormReg()
+        customer = CustomerSupportFormReg()
         return render(request, self.support_reg, {'form': customer})
 
     def post(self, request):
@@ -22,7 +22,7 @@ class CustomerSupportRegistrationView(View):
             user.user_type = 'CS'
             user.save()
             login(request, user)
-            return redirect('customer_support_login')
+            return redirect('ticket_login')
         return render(request, self.support_reg, {'form': form})
 
 
@@ -63,7 +63,7 @@ class CustomerRegistrationView(View):
             user.user_type = 'CU'
             user.save()
             login(request, user)
-            return redirect('customer_login')
+            return redirect('ticket_login')
         return render(request, self.customer_reg, {'form': form})
 
 
@@ -88,36 +88,28 @@ def customer_index(request):
     return render(request, 'ticket_customer_index.html')
 
 
-def ticket_login_view(request):
-    if request.method == 'POST':
+class TicketLoginView(View):
+    template = 'ticket_login.html'
+
+    def get(self, request):
+        form = TicketLogin()
+        return render(request, self.template, {'form': form})
+
+    def post(self, request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                # Print successful authentication
-                print(f'User {username} authenticated successfully')
-                if user.user_type == 'CU' or user.user_type == 'CS':
-                    login(request, user)
-                    messages.success(request, 'Login successful')
-                    if user.user_type == 'CU':
-                        return redirect('customer_index')
-                    elif user.user_type == 'CS':
-                        return redirect('customer_support_index')
-                else:
-                    messages.error(request, "Invalid user type")
-            else:
-                # Print failed authentication
-                print(f'Failed authentication for user {username}')
-                messages.error(request, "Invalid username or password")
+            user = form.get_user()
+            login(request, user)
+            if user.user_type == 'CU':
+                return redirect('customer_index')
+            elif user.user_type == 'CS':
+                return redirect('customer_support_index')
         else:
-            messages.error(request, "Invalid form data")
-    else:
-        form = AuthenticationForm()
+            error_message = "Incorrect username or password!"
+            return render(request, self.template, {'form': form, 'error_message': error_message})
 
-    return render(request, 'ticket_login.html', {'form': form})
+
+
 
 
 
