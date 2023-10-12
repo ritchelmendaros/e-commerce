@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from Account.models import CustomerSupport, User, Customer
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class CustomerSupportFormReg(ModelForm):
@@ -20,6 +21,15 @@ class CustomerSupportFormReg(ModelForm):
                   'user_type', 'support_name']
 
 
+class CustomerSupportLogin(ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':  'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+    class Meta:
+        model = CustomerSupport
+        fields = ['username', 'password']
+
+
 class CustomerFormReg(ModelForm):
     username = forms.CharField(widget=forms.TextInput)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -35,4 +45,14 @@ class CustomerFormReg(ModelForm):
         model = Customer
         fields = ['username', 'password', 'first_name', 'last_name', 'email', 'mobile_number', 'user_address',
                   'user_type', 'age']
+
+
+class CustomerLogin(ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':  'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+    class Meta:
+        model = Customer
+        fields = ['username', 'password']
+
 
