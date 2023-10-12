@@ -3,65 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title style="font-size: 24px; font-weight: bold; font-family: 'Poppins', sans-serif;">Registration | Customer</title>
-    <style>
-        body {
-            background-color: #E7EFE1;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        h2 {
-            margin-top: 30px;
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 28px;
-            color: #475b4d;
-        }
-
-        form {
-            width: 400px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        label {
-            font-size: 16px;
-            width: 130px; /* Fixed width for labels */
-            font-family: 'Poppins', sans-serif;
-        }
-
-        input, select {
-            flex: 1;
-            padding: 4px;
-            border: 1px solid gray;
-            border-radius: 10px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            height: 30px;
-            font-size: 14px;
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        button {
-            width: 35%;
-            height: 40px;
-            border: none;
-            background: #475b4d;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 12px;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
     <h2>Customer Registration</h2>
