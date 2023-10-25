@@ -85,7 +85,7 @@ class CustomerLoginView(View):
 
 
 def customer_index(request):
-    return render(request, 'ticket_customer_index.html')
+    return render(request, 'ticket_customer_helpdesk.html')
 
 
 class TicketLoginView(View):
