@@ -56,7 +56,7 @@ class CustomerRegistrationView(View):
         return render(request, self.customer_reg, {'form': customer})
 
     def post(self, request):
-        form = CustomerSupportFormReg(request.POST)
+        form = CustomerFormReg(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])

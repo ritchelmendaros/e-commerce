@@ -12,7 +12,7 @@ class CustomerSupportFormReg(ModelForm):
     email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.TextInput)
     user_address = forms.CharField(widget=forms.TextInput)
-    user_type = forms.ChoiceField(choices=User.type_choices, initial='CS')
+    user_type = forms.ChoiceField(widget=forms.HiddenInput, choices=User.type_choices, initial='CS')
     support_name = forms.CharField(widget=forms.TextInput)
 
     class Meta:
@@ -38,7 +38,7 @@ class CustomerFormReg(ModelForm):
     email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.TextInput)
     user_address = forms.CharField(widget=forms.TextInput)
-    user_type = forms.ChoiceField(choices=User.type_choices, initial='CU')
+    user_type = forms.ChoiceField(widget=forms.HiddenInput, choices=User.type_choices, initial='CU')
     age = forms.IntegerField(widget=forms.NumberInput, initial=0)
 
     class Meta:
