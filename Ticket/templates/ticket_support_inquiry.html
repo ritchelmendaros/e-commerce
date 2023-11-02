@@ -89,6 +89,50 @@
             border-top-left-radius: 40px;
             border-top-right-radius: 40px;
             display: flex;
+            align-items: flex-start;
+        }
+
+        .table {
+            width: 90%;
+            text-align: left;
+            margin: 0 auto;
+            margin-top: 50px;
+            border-radius: 40px;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .table th {
+            letter-spacing: 4px;
+            word-spacing: 5px;
+            font-size: 17px;
+            padding-bottom: 20px;
+        }
+
+        .table th input[type="checkbox"],
+        .table td input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .table th:nth-child(3),
+        .table td:nth-child(3) {
+            width: 45%;
+        }
+
+        .table th:nth-child(5),
+        .table td:nth-child(5) {
+            width: 10%;
+        }
+
+        .table th:nth-child(2),
+        .table td:nth-child(2) {
+            text-align: center;
         }
 
         .navbar a {
@@ -121,6 +165,35 @@
         <h2>Ticket Inquiry</h2>
     </div>
     <div class="big-div">
+        <table class="table">
+            <tr>
+                <th>
+
+                </th>
+                <th>Ticket ID</th>
+                <th>Ticket Details</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>1</td>
+                <td>Issue with Product X</td>
+                <td>user@example.com</td>
+                <td>Open</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>2</td>
+                <td>Can't Access My Account</td>
+                <td>anotheruser@example.com</td>
+                <td>Closed</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
