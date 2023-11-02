@@ -37,7 +37,7 @@ class CustomerSupportLoginView(View):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('customer_support_index')
+            return redirect('customer_support_inquiry')
         else:
             error_message = "Incorrect username or password!"
             return render(request, self.support_login, {'form': form, 'error_message': error_message})
@@ -78,7 +78,7 @@ class CustomerLoginView(View):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('customer_index')
+            return redirect('customer_helpdesk')
         else:
             error_message = "Incorrect username or password!"
             return render(request, self.customer_login, {'form': form, 'error_message': error_message})
@@ -101,9 +101,9 @@ class TicketLoginView(View):
             user = form.get_user()
             login(request, user)
             if user.user_type == 'CU':
-                return redirect('customer_index')
+                return redirect('customer_helpdesk')
             elif user.user_type == 'CS':
-                return redirect('customer_support_index')
+                return redirect('customer_support_inquiry')
         else:
             error_message = "Incorrect username or password!"
             return render(request, self.template, {'form': form, 'error_message': error_message})
