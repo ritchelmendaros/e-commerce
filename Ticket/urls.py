@@ -5,7 +5,7 @@ urlpatterns = [
     path('customer-support-registration/', views.CustomerSupportRegistrationView.as_view(),
          name='customer_support_registration'),
     path('customer-support-login/', views.CustomerSupportLoginView.as_view(), name='customer_support_login'),
-    path('customer-support-index/', views.customer_support_index, name='customer_support_index'),
+    path('customer-support-inquiry/', views.customer_support_inquiry, name='customer_support_inquiry'),
     path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer_registration'),
     path('customer-login/', views.CustomerLoginView.as_view(), name='customer_login'),
     path('customer-helpdesk/', views.customer_helpdesk, name='customer_helpdesk'),

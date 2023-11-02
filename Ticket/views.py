@@ -43,8 +43,8 @@ class CustomerSupportLoginView(View):
             return render(request, self.support_login, {'form': form, 'error_message': error_message})
 
 
-def customer_support_index(request):
-    return render(request, 'ticket_support_index.html')
+def customer_support_inquiry(request):
+    return render(request, 'ticket_support_inquiry.html')
 
 
 class CustomerRegistrationView(View):
