@@ -16,13 +16,13 @@
 
         .navbar {
             background-color: #F8F7F6;
-            padding: 20px 50px; /* Adjust padding for more space on the right */
-            position: fixed; /* Fix the navbar on the left */
+            padding: 20px 50px;
+            position: fixed;
             top: 0;
-            left: 0; /* Position it on the left */
+            left: 0;
             display: flex;
-            flex-direction: column; /* Display links in a column */
-            align-items: center; /* Center items horizontally */
+            align-items: center;
+            letter-spacing: 3px;
         }
 
         .navbar-logo {
@@ -32,27 +32,153 @@
 
         .navbar-logo img {
             height: auto;
-            margin-right: 0px; /* Add space between the logo and line */
+            margin right: 10px;
             max-width: 10%;
         }
 
         .navbar-logo span {
             margin-top: 15px;
-            border-left: 1px solid #39423C; /* Add a vertical line */
-            padding-left: 20px; /* Add space to the left of the text */
+            border-left: 1px solid #39423C;
+            padding-left: 20px;
             padding-top: 20px;
             letter-spacing: 5px;
         }
 
         .container {
             padding: 20px;
-            margin-left: 200px; /* Add margin to the left to avoid overlapping content with navbar */
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .container h2 {
+            letter-spacing: 4px;
+            word-spacing: 5px;
+        }
+
+        .container h3 {
+            letter-spacing: 3px;
+            word-spacing: 5px;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 400px;
+            border: 1px solid #39423C;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Roboto Condensed';
+            background-color: #F8F7F6;
+        }
+
+        .search-icon {
+            margin-top: -39px;
+            padding: 10px;
+            margin-left: 380px;
+        }
+
+        .big-div {
+            background-color: #DBDBDB;
+            height: 400px;
+            width: 85%;
+            margin: 0 auto; /* Center the div horizontally */
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            display: flex;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            margin-left: 100px;
+            padding-top: 50px;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 50px;
+        }
+
+        label {
+            letter-spacing: 2px;
+            word-spacing: 5px;
+        }
+
+        .input-box {
+            width: 350px;
+            padding: 10px;
+            border: 1px solid #39423C;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family: 'Roboto Condensed';
+            background-color: #F8F7F6;
+
+        }
+
+        .combo-box {
+            width: 370px;
+            padding: 10px;
+            border: 1px solid #39423C;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family: 'Roboto Condensed';
+            background-color: #F8F7F6;
+        }
+
+        .text-field {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #39423C;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #F8F7F6;
+            font-family: 'Roboto Condensed';
+        }
+
+        .right-panel-label {
+            letter-spacing: 2px;
+            word-spacing: 5px;
+            margin-top: 0px;
+            width: 65%;
+            line-height: 24px;
+        }
+
+        .submit-button {
+            width: 100px;
+            height: 40px;
+            background-color: #39423C;
+            color: #F8F7F6;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 10px 0;
+            margin-top: 20px;
+            margin-left: 200px;
+            word-spacing: 10px;
+            font-family: 'Roboto Condensed';
         }
 
         .navbar a {
             text-decoration: none;
             color: #39423C;
-            margin: 10px 0; /* Add vertical spacing between links */
+            margin: 10px 30px;
             font-weight: normal;
         }
 
@@ -60,7 +186,7 @@
             text-decoration: none;
             color: #39423C;
             font-size: 24px;
-            margin: 10px 0; /* Add vertical spacing for user icon */
+            margin: 10px 30px;
             font-weight: normal;
         }
     </style>
@@ -73,11 +199,44 @@
         </div>
         <a href="#">Home</a>
         <a href="#">Cart</a>
-        <a href="#">Help Desk</a>
+        <a href="#">Help</a>
         <a class="user-icon" href="#"><i class="fas fa-user"></i></a>
     </div>
     <div class="container">
-        <!-- Your content goes here -->
+        <h2>Hi, how can we help?</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>Submit a ticket</h3>
+        </div>
+    </div>
+    <div class="big-div">
+        <div class="left-panel">
+            <div class="input-container">
+                <label for="username">Username:</label><br>
+                <input class="input-box" type="text" id="username" placeholder="">
+            </div>
+            <div class="input-container">
+                <label for="email">Email Address:</label><br>
+                <input class="input-box" id="email" placeholder="" type="text">
+            </div>
+            <div class="input-container">
+                <label for="combo">Ticket Category:</label><br>
+                <select class="combo-box" id="combo">
+                    <option value="option1">Category 1</option>
+                    <option value="option2">Category 2</option>
+                    <option value="option3">Category 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="right-panel">
+            <label class="right-panel-label" for="message">Kindly provide the details that will help us
+                assist with your concern.</label><br>
+            <textarea class="text-field" id="message" placeholder=""></textarea>
+            <button class="submit-button" type="submit">Submit</button>
+        </div>
     </div>
 </body>
 </html>
