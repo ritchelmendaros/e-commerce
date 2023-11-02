@@ -84,7 +84,7 @@ class CustomerLoginView(View):
             return render(request, self.customer_login, {'form': form, 'error_message': error_message})
 
 
-def customer_index(request):
+def customer_helpdesk(request):
     return render(request, 'ticket_customer_helpdesk.html')
 
 
@@ -107,6 +107,10 @@ class TicketLoginView(View):
         else:
             error_message = "Incorrect username or password!"
             return render(request, self.template, {'form': form, 'error_message': error_message})
+
+
+def customer_ticket_history(request):
+    return render(request, 'ticket_customer_ticket_history.html')
 
 
 

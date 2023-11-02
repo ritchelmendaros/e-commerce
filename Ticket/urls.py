@@ -8,6 +8,7 @@ urlpatterns = [
     path('customer-support-index/', views.customer_support_index, name='customer_support_index'),
     path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer_registration'),
     path('customer-login/', views.CustomerLoginView.as_view(), name='customer_login'),
-    path('customer-index/', views.customer_index, name='customer_index'),
+    path('customer-helpdesk/', views.customer_helpdesk, name='customer_helpdesk'),
+    path('customer-ticket-history/', views.customer_ticket_history, name='customer_ticket_history'),
     path('ticket-login/', views.TicketLoginView.as_view(), name='ticket_login'),
 ]
