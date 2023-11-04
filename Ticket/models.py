@@ -3,7 +3,7 @@ from django.db import models
 
 class CustomerTicket(models.Model):
     ticket_id = models.BigAutoField(primary_key=True)
-    user_id = models.ForeignKey('Account.CustomerSupport', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('Account.User', on_delete=models.CASCADE)
     ticket_description = models.CharField(max_length=300)
     ticket_date = models.DateField()
     issue_choices = [

@@ -170,16 +170,19 @@
                 <th>Ticket Details</th>
                 <th>Status</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Issue with Product X</td>\
-                <td>Open</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Can't Access My Account</td>
-                <td>Close</td>
-            </tr>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.ticket_id }}</td>
+                    <td>{{ ticket.ticket_description }}</td>
+                    <td>
+                        {% if ticket.issue_status == 'O' %}
+                            Open
+                        {% elif ticket.issue_status == 'C' %}
+                            Closed
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 </body>

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import CustomerSupportFormReg, CustomerFormReg, CustomerLogin, CustomerSupportLogin, TicketLogin
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import messages
 from django.views import View
+from .models import CustomerTicket
+from Account.models import User
 
 
 class CustomerSupportRegistrationView(View):
@@ -111,6 +112,48 @@ class TicketLoginView(View):
 
 def customer_ticket_history(request):
     return render(request, 'ticket_customer_ticket_history.html')
+
+
+# saving data in database
+def submit_ticket(request):
+    if request.method == 'POST':
+        # Retrieve data from the form
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        category = request.POST.get('combo')
+        description = request.POST.get('message')
+
+        # Check if the username exists in the User model
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            # Handle the case where the username doesn't exist
+            return render(request, 'ticket_login.html', {'message': 'User does not exist'})
+
+        # Create a new CustomerTicket instance and save it to the database
+        ticket = CustomerTicket(
+            user_id=user,  # Set the user to the retrieved User instance
+            ticket_description=description,
+            issue_status='O'  # Assuming it's an open issue
+        )
+        ticket.save()
+
+        # Redirect to a success page or any other page as needed
+        return redirect('success_page')
+
+    return render(request, 'ticket_customer_helpdesk.html')
+
+
+def customer_ticket_history(request):
+    # Retrieve CustomerTicket objects
+    tickets = CustomerTicket.objects.all()
+
+    # Pass the tickets to the template
+    context = {
+        'tickets': tickets
+    }
+
+    return render(request, 'ticket_customer_ticket_history.html', context)
 
 
 
