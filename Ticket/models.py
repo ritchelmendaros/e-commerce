@@ -8,7 +8,6 @@ class CustomerTicket(models.Model):
     ticket_date = models.DateField()
     issue_choices = [
         ("O", "Open"),
-        ("IP", "In Progress"),
         ("C", "Closed"),
     ]
     issue_status = models.CharField(max_length=2, choices=issue_choices)
