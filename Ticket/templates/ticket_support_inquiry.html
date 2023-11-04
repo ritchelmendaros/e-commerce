@@ -167,32 +167,29 @@
     <div class="big-div">
         <table class="table">
             <tr>
-                <th>
-
-                </th>
+                <th></th>
                 <th>Ticket ID</th>
                 <th>Ticket Details</th>
                 <th>Email</th>
                 <th>Status</th>
             </tr>
+            {% for ticket in tickets %}
             <tr>
                 <td>
                     <input type="checkbox">
                 </td>
-                <td>1</td>
-                <td>Issue with Product X</td>
-                <td>user@example.com</td>
-                <td>Open</td>
-            </tr>
-            <tr>
+                <td>{{ ticket.ticket_id }}</td>
+                <td>{{ ticket.ticket_description }}</td>
+                <td>{{ ticket.user_id.email }}</td>
                 <td>
-                    <input type="checkbox">
+                    {% if ticket.issue_status == 'O' %}
+                            Open
+                        {% elif ticket.issue_status == 'C' %}
+                            Closed
+                        {% endif %}
                 </td>
-                <td>2</td>
-                <td>Can't Access My Account</td>
-                <td>anotheruser@example.com</td>
-                <td>In Progress</td>
             </tr>
+            {% endfor %}
         </table>
     </div>
 </body>

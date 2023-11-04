@@ -46,8 +46,8 @@ class CustomerSupportLoginView(View):
             return render(request, self.support_login, {'form': form, 'error_message': error_message})
 
 
-def customer_support_inquiry(request):
-    return render(request, 'ticket_support_inquiry.html')
+# def customer_support_inquiry(request):
+#     return render(request, 'ticket_support_inquiry.html')
 
 
 class CustomerRegistrationView(View):
@@ -154,15 +154,20 @@ def submit_ticket(request):
 
 
 def customer_ticket_history(request):
-    # Retrieve CustomerTicket objects
     tickets = CustomerTicket.objects.all()
+    context = {
+        'tickets': tickets
+    }
+    return render(request, 'ticket_customer_ticket_history.html', context)
 
-    # Pass the tickets to the template
+
+def customer_support_inquiry(request):
+    tickets = CustomerTicket.objects.all()
     context = {
         'tickets': tickets
     }
 
-    return render(request, 'ticket_customer_ticket_history.html', context)
+    return render(request, 'ticket_support_inquiry.html', context)
 
 
 
