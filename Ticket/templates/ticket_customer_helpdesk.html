@@ -212,19 +212,18 @@
             <h3>Submit a ticket</h3>
         </div>
     </div>
+    <form method="post" action="{% url 'submit_ticket' %}">
+        {% csrf_token %}
     <div class="big-div">
         <div class="left-panel">
             <div class="input-container">
                 <label for="username">Username:</label><br>
-                <input class="input-box" type="text" id="username" placeholder="">
+                <input class="input-box" type="text" name="username" id="username" placeholder="">
             </div>
-            <div class="input-container">
-                <label for="email">Email Address:</label><br>
-                <input class="input-box" id="email" placeholder="" type="text">
-            </div>
+
             <div class="input-container">
                 <label for="combo">Ticket Category:</label><br>
-                <select class="combo-box" id="combo">
+                <select class="combo-box" name="category_name" id="combo">
                     <option value="option1">Category 1</option>
                     <option value="option2">Category 2</option>
                     <option value="option3">Category 3</option>
@@ -234,9 +233,10 @@
         <div class="right-panel">
             <label class="right-panel-label" for="message">Kindly provide the details that will help us
                 assist with your concern.</label><br>
-            <textarea class="text-field" id="message" placeholder=""></textarea>
+            <textarea class="text-field" name="message" id="message" placeholder=""></textarea>
             <button class="submit-button" type="submit">Submit</button>
         </div>
     </div>
+    </form>
 </body>
 </html>

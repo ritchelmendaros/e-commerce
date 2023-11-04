@@ -3,8 +3,10 @@ from .forms import CustomerSupportFormReg, CustomerFormReg, CustomerLogin, Custo
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
-from .models import CustomerTicket
+from .models import CustomerTicket, TicketCategory
 from Account.models import User
+from django.utils import timezone
+from django.http import HttpResponseNotFound, HttpResponse
 
 
 class CustomerSupportRegistrationView(View):
@@ -110,37 +112,44 @@ class TicketLoginView(View):
             return render(request, self.template, {'form': form, 'error_message': error_message})
 
 
-def customer_ticket_history(request):
-    return render(request, 'ticket_customer_ticket_history.html')
-
-
 # saving data in database
 def submit_ticket(request):
     if request.method == 'POST':
         # Retrieve data from the form
         username = request.POST.get('username')
-        email = request.POST.get('email')
-        category = request.POST.get('combo')
+        category_name = request.POST.get('category_name')
         description = request.POST.get('message')
 
-        # Check if the username exists in the User model
+        print("Received username:", username)
+
         try:
+            # Check if the username exists in the User model
             user = User.objects.get(username=username)
+            print("Found user:", user)
         except User.DoesNotExist:
             # Handle the case where the username doesn't exist
-            return render(request, 'ticket_login.html', {'message': 'User does not exist'})
-
+            print("User does not exist")
+            return HttpResponseNotFound('User does not exist')
         # Create a new CustomerTicket instance and save it to the database
         ticket = CustomerTicket(
-            user_id=user,  # Set the user to the retrieved User instance
+            user_id=user,
             ticket_description=description,
-            issue_status='O'  # Assuming it's an open issue
+            ticket_date=timezone.now(),
+            issue_status='O'
         )
         ticket.save()
-
+        # Create a new TicketCategory instance and save it to the database
+        if category_name:
+            ticket_category = TicketCategory(
+                ticket_id=ticket,
+                category_name=category_name
+            )
+            ticket_category.save()
+        else:
+            # Handle the case where category_name is empty (null)
+            return HttpResponse('Category name cannot be empty', status=400)
         # Redirect to a success page or any other page as needed
-        return redirect('success_page')
-
+        return redirect('customer_ticket_history')
     return render(request, 'ticket_customer_helpdesk.html')
 
 
