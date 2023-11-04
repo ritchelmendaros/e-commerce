@@ -224,9 +224,9 @@
             <div class="input-container">
                 <label for="combo">Ticket Category:</label><br>
                 <select class="combo-box" name="category_name" id="combo">
-                    <option value="option1">Category 1</option>
-                    <option value="option2">Category 2</option>
-                    <option value="option3">Category 3</option>
+                    {% for category_code, category_name in categories %}
+                        <option value="{{ category_code }}">{{ category_name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>

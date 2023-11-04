@@ -88,7 +88,11 @@ class CustomerLoginView(View):
 
 
 def customer_helpdesk(request):
-    return render(request, 'ticket_customer_helpdesk.html')
+    categories = TicketCategory.CATEGORY_CHOICES  # Get the category choices
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'ticket_customer_helpdesk.html', context)
 
 
 class TicketLoginView(View):
@@ -168,9 +172,6 @@ def customer_support_inquiry(request):
     }
 
     return render(request, 'ticket_support_inquiry.html', context)
-
-
-
 
 
 
