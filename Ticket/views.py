@@ -46,10 +46,6 @@ class CustomerSupportLoginView(View):
             return render(request, self.support_login, {'form': form, 'error_message': error_message})
 
 
-# def customer_support_inquiry(request):
-#     return render(request, 'ticket_support_inquiry.html')
-
-
 class CustomerRegistrationView(View):
     customer_reg = 'ticket_customer_registration.html'
     form_class = CustomerFormReg
@@ -127,11 +123,9 @@ def submit_ticket(request):
         print("Received username:", username)
 
         try:
-            # Check if the username exists in the User model
             user = User.objects.get(username=username)
             print("Found user:", user)
         except User.DoesNotExist:
-            # Handle the case where the username doesn't exist
             print("User does not exist")
             return HttpResponseNotFound('User does not exist')
         # Create a new CustomerTicket instance and save it to the database
