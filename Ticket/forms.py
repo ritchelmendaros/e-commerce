@@ -1,7 +1,6 @@
 from django.forms import ModelForm
 from django import forms
 from Account.models import CustomerSupport, User, Customer
-from django.contrib.auth.forms import AuthenticationForm
 
 
 class CustomerSupportFormReg(ModelForm):

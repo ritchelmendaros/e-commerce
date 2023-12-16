@@ -30,7 +30,7 @@
 
         .form-group input, .form-group select {
             display: inline-block;
-            width: 60%;
+            width: 63%;
             padding: 10px;
             background-color: #DBDBDB;
             border: none;
@@ -40,19 +40,30 @@
             font-size: 14px;
             transition: background-color 0.2s;
             margin-bottom: 10px;
+            color: #272E29;
         }
 
         input::placeholder, select::placeholder {
-            color: #ccc;
+            color: #535353;
+        }
+
+        label {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 16px;
+            color: #39423C;
         }
 
         input:focus, select:focus {
-            background-color: #DBDBDB; /* Change background color on focus */
+            background-color: #BFBFBF; /* Change background color on focus */
         }
 
         .button-container {
             text-align: center;
             margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #49594E;
         }
 
         button {
@@ -75,7 +86,25 @@
         <form method="post">
             <div class="form-group">
                 {% csrf_token %}
-                {{ form.as_div }}
+                <label>Username: </label>
+                <input type="text" name="username">
+                <label>Password: </label>
+                <input type="password" name="password">
+                <label>Firstname: </label>
+                <input type="text" name="first_name">
+                <label>Lastname: </label>
+                <input type="text" name="last_name">
+                <label>Email: </label>
+                <input type="email" name="email">
+                <label>Mobile Number: </label>
+                <input type="text" name="mobile_number">
+                <label>Address: </label>
+                <input type="text" name="user_address">
+                <label>Support Name: </label>
+                <input type="text" name="support_name">
+                {% if msg %}
+                    <p style="color: red; text-align: center;">{{ msg }}</p>
+                {% endif %}
             </div>
             <div class="button-container">
                 <button type="submit">Submit</button>

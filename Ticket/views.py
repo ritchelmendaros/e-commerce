@@ -1,3 +1,4 @@
+from django.db import connection
 from django.shortcuts import render, redirect
 from .forms import CustomerSupportFormReg, CustomerFormReg, CustomerLogin, CustomerSupportLogin, TicketLogin
 from django.contrib.auth import login
@@ -7,26 +8,37 @@ from .models import CustomerTicket, TicketCategory
 from Account.models import User
 from django.utils import timezone
 from django.http import HttpResponseNotFound, HttpResponse
+from django.contrib.auth.hashers import make_password
 
 
 class CustomerSupportRegistrationView(View):
-    support_reg = 'ticket_support_registration.html'
-    form_class = CustomerSupportFormReg
+    template = 'ticket_support_registration.html'
 
     def get(self, request):
-        customer = CustomerSupportFormReg()
-        return render(request, self.support_reg, {'form': customer})
+        return render(request, self.template)
 
     def post(self, request):
-        form = CustomerSupportFormReg(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.user_type = 'CS'
-            user.save()
-            login(request, user)
+        usn = request.POST['username']
+        raw_pwd = request.POST['password']
+        hashed_pwd = make_password(raw_pwd)
+        fname = request.POST['first_name']
+        lname = request.POST['last_name']
+        mail = request.POST['email']
+        number = request.POST['mobile_number']
+        address = request.POST['user_address']
+        type = 'CS'
+        supportname = request.POST['support_name']
+        cursor = connection.cursor()
+        args = [usn, hashed_pwd, fname, lname, mail, number, address, type, supportname]
+        cursor.callproc('InsertNewCS', args)
+        result = cursor.fetchall()
+        cursor.close()
+        if result and 'Username already exists' in result[0]:
+            msg = 'Username already exists'
+            return render(request, self.template, {'msg': msg})
+        else:
+            request.session['username'] = usn
             return redirect('ticket_login')
-        return render(request, self.support_reg, {'form': form})
 
 
 class CustomerSupportLoginView(View):
