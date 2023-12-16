@@ -59,23 +59,33 @@ class CustomerSupportLoginView(View):
 
 
 class CustomerRegistrationView(View):
-    customer_reg = 'ticket_customer_registration.html'
-    form_class = CustomerFormReg
+    template = 'ticket_customer_registration.html'
 
     def get(self, request):
-        customer = CustomerFormReg()
-        return render(request, self.customer_reg, {'form': customer})
+        return render(request, self.template)
 
     def post(self, request):
-        form = CustomerFormReg(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.user_type = 'CU'
-            user.save()
-            login(request, user)
+        usn = request.POST['username']
+        raw_pwd = request.POST['password']
+        hashed_pwd = make_password(raw_pwd)
+        fname = request.POST['first_name']
+        lname = request.POST['last_name']
+        mail = request.POST['email']
+        number = request.POST['mobile_number']
+        address = request.POST['user_address']
+        type = 'CU'
+        user_age = request.POST['age']
+        cursor = connection.cursor()
+        args = [usn, hashed_pwd, fname, lname, mail, number, address, type, user_age]
+        cursor.callproc('InsertNewCU', args)
+        result = cursor.fetchall()
+        cursor.close()
+        if result and 'Username already exists' in result[0]:
+            msg = 'Username already exists'
+            return render(request, self.template, {'msg': msg})
+        else:
+            request.session['username'] = usn
             return redirect('ticket_login')
-        return render(request, self.customer_reg, {'form': form})
 
 
 class CustomerLoginView(View):

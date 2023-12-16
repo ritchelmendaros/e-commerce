@@ -75,7 +75,25 @@
         <form method="post">
             <div class="form-group">
                 {% csrf_token %}
-                {{ form.as_div }}
+                <label>Username: </label>
+                <input type="text" name="username">
+                <label>Password: </label>
+                <input type="password" name="password">
+                <label>Firstname: </label>
+                <input type="text" name="first_name">
+                <label>Lastname: </label>
+                <input type="text" name="last_name">
+                <label>Email: </label>
+                <input type="email" name="email">
+                <label>Mobile Number: </label>
+                <input type="text" name="mobile_number">
+                <label>Address: </label>
+                <input type="text" name="user_address">
+                <label>Age: </label>
+                <input type="number" name="age">
+                {% if msg %}
+                    <p style="color: red; text-align: center;">{{ msg }}</p>
+                {% endif %}
             </div>
             <div class="button-container">
                 <button type="submit">Submit</button>
