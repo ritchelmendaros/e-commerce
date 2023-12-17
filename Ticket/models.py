@@ -20,3 +20,11 @@ class CustomerTicket(models.Model):
     ]
     issue_status = models.CharField(max_length=2, choices=issue_choices)
     ticket_category_id = models.ForeignKey(TicketCategory, models.SET_NULL, null=True)
+
+
+class TicketReply(models.Model):
+    reply_id = models.BigAutoField(primary_key=True)
+    replycontent = models.CharField(max_length=500)
+    user_id = models.ForeignKey('Account.User', on_delete=models.CASCADE)
+    ticket_id = models.ForeignKey(CustomerTicket, models.SET_NULL, null=True)
+    support_name = models.CharField(max_length=50)
