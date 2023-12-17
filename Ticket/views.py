@@ -20,7 +20,6 @@ class CustomerSupportRegistrationView(View):
     def post(self, request):
         usn = request.POST['username']
         raw_pwd = request.POST['password']
-        hashed_pwd = make_password(raw_pwd)
         fname = request.POST['first_name']
         lname = request.POST['last_name']
         mail = request.POST['email']
@@ -67,7 +66,6 @@ class CustomerRegistrationView(View):
     def post(self, request):
         usn = request.POST['username']
         raw_pwd = request.POST['password']
-        hashed_pwd = make_password(raw_pwd)
         fname = request.POST['first_name']
         lname = request.POST['last_name']
         mail = request.POST['email']
@@ -105,12 +103,17 @@ class CustomerLoginView(View):
             return render(request, self.customer_login, {'form': form, 'error_message': error_message})
 
 
-def customer_helpdesk(request):
-    categories = TicketCategory.CATEGORY_CHOICES  # Get the category choices
-    context = {
-        'categories': categories,
-    }
-    return render(request, 'ticket_customer_helpdesk.html', context)
+class CustomerHelpdeskView(View):
+    template = 'ticket_customer_helpdesk.html'
+
+    def get(self, request):
+        cursor = connection.cursor()
+        query ='select * from DisplayCategory'
+        cursor.execute(query)
+        categories = cursor.fetchall()
+        cursor.close()
+        msg = categories
+        return render(request, self.template, {'msg': msg})
 
 
 class TicketLoginView(View):
@@ -122,8 +125,6 @@ class TicketLoginView(View):
     def post(self, request):
         usn = request.POST['username']
         pwd = request.POST['password']
-        # hashed_pwd = make_password(raw_pwd)
-        # print(hashed_pwd)
         cursor = connection.cursor()
         args = [usn, pwd]
         cursor.callproc('CheckCredentialsLogin', args)
@@ -139,12 +140,30 @@ class TicketLoginView(View):
 
         elif result and result[0][0] == 'CU':
             msg = 'CU'
-            return render(request, self.template, {'msg': msg})
+            return redirect('customer_helpdesk')
 
         else:
             msg = 'Unexpected result from the stored procedure'
             return render(request, self.template, {'msg': msg})
 
+
+# class submit_ticket(View):
+#     template = 'ticket_customer_helpdesk.html'
+#
+#     def get(self, request):
+#         return render(request, self.template)
+#
+#     def post(self, request):
+#         username = request.POST.get('username')
+#         category_name = request.POST.get('category_name')
+#         description = request.POST.get('message')
+#         cursor = connection.cursor()
+#         args = [username, category_name, description]
+#         cursor.callproc('CheckCredentialsLogin', args)
+#         result = cursor.fetchall()
+#         cursor.close()
+#
+#         print("Received username:", username)
 
 # saving data in database
 def submit_ticket(request):
@@ -200,6 +219,8 @@ def customer_support_inquiry(request):
     }
 
     return render(request, 'ticket_support_inquiry.html', context)
+
+
 
 
 

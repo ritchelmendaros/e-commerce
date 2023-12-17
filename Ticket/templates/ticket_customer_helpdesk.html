@@ -207,10 +207,6 @@
     <div class="container">
         <h2>Hi, how can we help?</h2>
         <div class="search-bar">
-<!--            <input type="text" placeholder="">-->
-<!--            <div class="search-icon">-->
-<!--                <i class="fas fa-search"></i>-->
-<!--            </div>-->
             <h3>Submit a ticket</h3>
         </div>
     </div>
@@ -226,8 +222,8 @@
             <div class="input-container">
                 <label for="combo">Ticket Category:</label><br>
                 <select class="combo-box" name="category_name" id="combo">
-                    {% for category_code, category_name in categories %}
-                        <option value="{{ category_code }}">{{ category_name }}</option>
+                    {% for category_tuple in msg %}
+                        <option value="{{ category_tuple.0 }}">{{ category_tuple.0 }}</option>
                     {% endfor %}
                 </select>
             </div>
