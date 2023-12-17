@@ -75,7 +75,13 @@
     <form method="post">
             <div class="form-group">
                 {% csrf_token %}
-                {{ form.as_div }}
+                <label>Username: </label>
+                <input type="text" name="username">
+                <label>Password: </label>
+                <input type="password" name="password">
+                {% if msg %}
+                    <p style="color: red; text-align: center;">{{ msg }}</p>
+                {% endif %}
             </div>
             <div class="button-container">
                 <button type="submit">Submit</button>

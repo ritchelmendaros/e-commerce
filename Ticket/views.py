@@ -29,7 +29,7 @@ class CustomerSupportRegistrationView(View):
         type = 'CS'
         supportname = request.POST['support_name']
         cursor = connection.cursor()
-        args = [usn, hashed_pwd, fname, lname, mail, number, address, type, supportname]
+        args = [usn, raw_pwd, fname, lname, mail, number, address, type, supportname]
         cursor.callproc('InsertNewCS', args)
         result = cursor.fetchall()
         cursor.close()
@@ -76,7 +76,7 @@ class CustomerRegistrationView(View):
         type = 'CU'
         user_age = request.POST['age']
         cursor = connection.cursor()
-        args = [usn, hashed_pwd, fname, lname, mail, number, address, type, user_age]
+        args = [usn, raw_pwd, fname, lname, mail, number, address, type, user_age]
         cursor.callproc('InsertNewCU', args)
         result = cursor.fetchall()
         cursor.close()
@@ -117,21 +117,33 @@ class TicketLoginView(View):
     template = 'ticket_login.html'
 
     def get(self, request):
-        form = TicketLogin()
-        return render(request, self.template, {'form': form})
+        return render(request, self.template)
 
     def post(self, request):
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            if user.user_type == 'CU':
-                return redirect('customer_helpdesk')
-            elif user.user_type == 'CS':
-                return redirect('customer_support_inquiry')
+        usn = request.POST['username']
+        pwd = request.POST['password']
+        # hashed_pwd = make_password(raw_pwd)
+        # print(hashed_pwd)
+        cursor = connection.cursor()
+        args = [usn, pwd]
+        cursor.callproc('CheckCredentialsLogin', args)
+        result = cursor.fetchall()
+        cursor.close()
+        if result and 'Incorrect username and password' in result[0]:
+            msg = 'Incorrect username and password'
+            return render(request, self.template, {'msg': msg})
+
+        elif result and result[0][0] == 'CS':
+            msg = 'CS'
+            return render(request, self.template, {'msg': msg})
+
+        elif result and result[0][0] == 'CU':
+            msg = 'CU'
+            return render(request, self.template, {'msg': msg})
+
         else:
-            error_message = "Incorrect username or password!"
-            return render(request, self.template, {'form': form, 'error_message': error_message})
+            msg = 'Unexpected result from the stored procedure'
+            return render(request, self.template, {'msg': msg})
 
 
 # saving data in database
