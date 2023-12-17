@@ -107,7 +107,8 @@ class TicketLoginView(View):
             return render(request, self.template, {'msg': msg})
 
         elif result and result[0][0] == 'CS':
-            return redirect('customer_support_inquiry')
+            redirect_url = reverse('customer_support_inquiry', kwargs={'username': usn})
+            return redirect(redirect_url)
 
         elif result and result[0][0] == 'CU':
             return redirect('customer_helpdesk')
@@ -134,16 +135,17 @@ class CustomerTicketHistoryView(View):
 class CustomerSupportInquiry(View):
     template = 'ticket_support_inquiry.html'
 
-    def get(self, request):
+    def get(self, request, username):
         cursor = connection.cursor()
         cursor.callproc('DisplayCustomerSupportTickets')
         result = cursor.fetchall()
         cursor.close()
         tickets = [{'ticket_id': row[0], 'ticket_description': row[1], 'email': row[2], 'issue_status': row[3]} for row in result]
-        return render(request, self.template, {'tickets': tickets})
+        context = {'tickets': tickets, 'username': username}
+        return render(request, self.template, context)
 
 
-class ThreadedDiscussionView(View):
+class CustomerThreadedDiscussionView(View):
     template = 'ticket_customer_thread.html'
 
     def get(self, request, ticket_id, ticket_description, issue_status, username):
@@ -154,13 +156,35 @@ class ThreadedDiscussionView(View):
         result = cursor.fetchall()
         cursor.close()
 
-        # Assuming the result contains a 'fullname' column
         fullname = result[0][0] if result else 'Default Full Name'
 
         return render(request, self.template, {
             'ticket_id': ticket_id,
             'ticket_description': ticket_description,
             'issue_status': issue_status,
+            'username': username,
+            'fullname': fullname,
+        })
+
+
+class SupportThreadedDiscussionView(View):
+    template = 'ticket_support_thread.html'
+
+    def get(self, request, ticket_id, ticket_description, email, issue_status, username):
+        print(username)
+        cursor = connection.cursor()
+        args = [username]
+        cursor.callproc('GetFirstandLastName', args)
+        result = cursor.fetchall()
+        cursor.close()
+
+        fullname = result[0][0] if result else 'Default Full Name'
+
+        return render(request, self.template, {
+            'ticket_id': ticket_id,
+            'ticket_description': ticket_description,
+            'issue_status': issue_status,
+            'email': email,
             'username': username,
             'fullname': fullname,
         })

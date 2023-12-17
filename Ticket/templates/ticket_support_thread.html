@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Roboto Condensed' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Support | Ticket Inquiry</title>
+    <link rel="stylesheet" type="text/css" href="path/to/your/existing/style.css">
     <style>
+        /* Additional or modified styles for the new HTML file */
+
+        /* Specify background styles for the new HTML file */
         body {
             margin: 0;
             padding: 0;
@@ -149,7 +152,76 @@
             margin: 10px 30px;
             font-weight: normal;
         }
+
+        .container {
+            padding: 20px;
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .container h2 {
+            letter-spacing: 4px;
+            word-spacing: 5px;
+        }
+
+        .discussion-container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .thread {
+            background-color: #DBDBDB;
+            border-radius: 38px;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .thread-author {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #272E29;
+        }
+
+        .thread-content {
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+        .reply-form {
+            margin-top: 20px;
+        }
+
+        .reply-form textarea {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #39423C;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #F8F7F6;
+        }
+
+        .reply-form button {
+            padding: 10px;
+            background-color: #39423C;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 0px;
+        }
+
+        .thread-author {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .customer-info,
+        .ticket-info {
+            flex: 1;
+        }
     </style>
+    <title>Support | Ticket Thread</title>
 </head>
 <body>
     <div class="navbar">
@@ -159,32 +231,24 @@
         </div>
         <a href="#">Home</a>
         <a href="#"><b>Tickets</b></a>
+        <a href="#">Help</a>
         <a class="user-icon" href="#"><i class="fas fa-user"></i></a>
     </div>
     <div class="container">
-        <h2>Ticket Inquiry</h2>
-    </div>
-    <div class="big-div">
-        <table class="table">
-            <tr>
-                <th></th>
-                <th>Ticket ID</th>
-                <th>Ticket Details</th>
-                <th>Email</th>
-                <th>Status</th>
-            </tr>
-            {% for ticket in tickets %}
-            <tr class="table-row-link" onclick="window.location='{% url 'ticket_support_threaded' ticket.ticket_id ticket.ticket_description ticket.email ticket.issue_status username%}'">
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>{{ ticket.ticket_id }}</td>
-                <td>{{ ticket.ticket_description }}</td>
-                <td>{{ ticket.email }}</td>
-                <td>{{ ticket.issue_status }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        <h2>Threaded Discussion</h2>
+        <div class="discussion-container">
+            <div class="thread">
+                <div class="thread-author">
+                    <span class="customer-info">{{ fullname }}</span>
+                    <span class="ticket-info">Ticket ID: {{ ticket_id }}</span>
+                    <span class="ticket-info">Status: {{ issue_status }}</span>
+                </div>
+                <p class="thread-content">{{ ticket_description }}</p>
+            </div>
+            <div class="reply-form">
+                <textarea placeholder="Reply..."></textarea> <button>Reply</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
