@@ -27,4 +27,4 @@ class TicketReply(models.Model):
     replycontent = models.CharField(max_length=500)
     user_id = models.ForeignKey('Account.User', on_delete=models.CASCADE)
     ticket_id = models.ForeignKey(CustomerTicket, models.SET_NULL, null=True)
-    support_name = models.CharField(max_length=50)
+    # support_name = models.CharField(max_length=50)

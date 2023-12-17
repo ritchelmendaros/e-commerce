@@ -188,6 +188,26 @@ class SupportThreadedDiscussionView(View):
             'fullname': fullname,
         })
 
+    def post(self, request):
+        replycontent = request.POST['replycontent']
+        args = [replycontent]
+        cursor.callproc('CheckCredentialsLogin', args)
+        result = cursor.fetchall()
+        cursor.close()
+        if result and 'Incorrect username and password' in result[0]:
+            msg = 'Incorrect username and password'
+            return render(request, self.template, {'msg': msg})
+
+        elif result and result[0][0] == 'CS':
+            redirect_url = reverse('customer_support_inquiry', kwargs={'username': usn})
+            return redirect(redirect_url)
+
+        elif result and result[0][0] == 'CU':
+            return redirect('customer_helpdesk')
+
+        else:
+            msg = 'Unexpected result from the stored procedure'
+            return render(request, self.template, {'msg': msg})
 
 
 

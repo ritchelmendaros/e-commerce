@@ -1,5 +1,5 @@
 from django.db import models
-from Ticket.models import CustomerTicket
+from Ticket.models import CustomerTicket, TicketReply
 from django.contrib.auth.models import AbstractUser
 
 
@@ -57,6 +57,7 @@ class Courier(User):
 class CustomerSupport(User):
     support_name = models.CharField(max_length=50)
     ticket_id = models.ForeignKey(CustomerTicket, models.SET_NULL, null=True)
+    reply_id = models.ForeignKey(TicketReply, models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = 'Customer Support'
