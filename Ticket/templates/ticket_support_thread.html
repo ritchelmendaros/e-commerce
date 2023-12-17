@@ -171,16 +171,27 @@
         }
 
         .thread {
-            background-color: #DBDBDB;
-            border-radius: 38px;
-            margin-bottom: 20px;
+            background-color: #949494;
+            border-radius: 20px;
+            margin-bottom: 50px;
             padding: 15px;
+            color: #000000;
+        }
+
+        .thread1 {
+            background-color: #39423C;
+            color: #F8F7F6;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            padding-top: 3px;
+            padding-bottom: 13px;
+            padding-right: 13px;
+            padding-left: 13px;
         }
 
         .thread-author {
             margin-top: 15px;
             font-weight: bold;
-            color: #272E29;
         }
 
         .thread-content {
@@ -193,22 +204,32 @@
         }
 
         .reply-form textarea {
-            width: 80%;
+            width: 98%;
+            height: 100px;
             padding: 10px;
-            border: 1px solid #39423C;
-            border-radius: 5px;
+            margin-top: 0;
+            border-style: none;
             font-size: 14px;
-            background-color: #F8F7F6;
+            background-color: #39423C;
+            color: #F8F7F6;
+            font-size: 16px;
+            font-family: 'Roboto Condensed';
+            background-color: #39423C;
+            outline: none;
         }
 
-        .reply-form button {
+        button {
+            width: 12%;
             padding: 10px;
-            background-color: #39423C;
+            background-color: #F8F7F6;
             color: #FFFFFF;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 0px;
+            font-size: 16px;
+            font-family: 'Roboto Condensed';
+            background-color: #39423C;
         }
 
         .thread-author {
@@ -245,9 +266,12 @@
                 </div>
                 <p class="thread-content">{{ ticket_description }}</p>
             </div>
-            <div class="reply-form">
-                <textarea placeholder="Reply..."></textarea> <button>Reply</button>
-            </div>
+             <div class="thread1">
+                <div class="reply-form">
+                    <textarea placeholder="Reply..."></textarea>
+                </div>
+             </div>
+            <button>Submit</button>
         </div>
     </div>
 </body>
