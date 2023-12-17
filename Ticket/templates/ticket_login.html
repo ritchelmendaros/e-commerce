@@ -79,6 +79,8 @@
                 <input type="text" name="username">
                 <label>Password: </label>
                 <input type="password" name="password">
+                <label style="font-size: 12px; width: 380px; text-align: right;">Don’t have an account? <a href="{% url 'customer_support_registration' %}" class="signup-link">Sign Up as CS</a></label>
+                <label style="font-size: 12px; width: 380px; text-align: right;"><a href="{% url 'customer_registration' %}" class="signup-link">Sign Up as CU</a></label>
                 {% if msg %}
                     <p style="color: red; text-align: center;">{{ msg }}</p>
                 {% endif %}

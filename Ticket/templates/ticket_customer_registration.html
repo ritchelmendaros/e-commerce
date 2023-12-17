@@ -91,6 +91,7 @@
                 <input type="text" name="user_address">
                 <label>Age: </label>
                 <input type="number" name="age">
+                <label style="font-size: 12px; width: 380px; text-align: right;">Already have an account? <a href="{% url 'ticket_login' %}" class="signup-link">Sign In</a></label>
                 {% if msg %}
                     <p style="color: red; text-align: center;">{{ msg }}</p>
                 {% endif %}
