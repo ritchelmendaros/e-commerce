@@ -1,4 +1,5 @@
 from django.db import connection
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import CustomerTicket, TicketCategory
@@ -188,26 +189,36 @@ class SupportThreadedDiscussionView(View):
             'fullname': fullname,
         })
 
-    def post(self, request):
+    def post(self, request, ticket_id, ticket_description, email, issue_status):
         replycontent = request.POST['replycontent']
-        args = [replycontent]
-        cursor.callproc('CheckCredentialsLogin', args)
+        cursor = connection.cursor()
+        args = [ticket_id]
+        cursor.callproc('GetUserIDUsingTicketID', args)
         result = cursor.fetchall()
         cursor.close()
-        if result and 'Incorrect username and password' in result[0]:
-            msg = 'Incorrect username and password'
-            return render(request, self.template, {'msg': msg})
 
-        elif result and result[0][0] == 'CS':
+        user_id = result[0][0] if result else 'None'
+        print(user_id)
+
+        cursor = connection.cursor()
+        args = [replycontent, user_id, ticket_id]
+        cursor.callproc('InsertTicketReply', args)
+        result = cursor.fetchall()
+        cursor.close()
+        rid = result[0][0] if result else '0'
+        print(rid)
+        if rid != 0:
+            cursor = connection.cursor()
+            args = [user_id]
+            cursor.callproc('GetUSNbyUID', args)
+            result = cursor.fetchall()
+            cursor.close()
+            usn = result[0][0] if result else 'None'
+            print(rid)
             redirect_url = reverse('customer_support_inquiry', kwargs={'username': usn})
             return redirect(redirect_url)
 
-        elif result and result[0][0] == 'CU':
-            return redirect('customer_helpdesk')
-
-        else:
-            msg = 'Unexpected result from the stored procedure'
-            return render(request, self.template, {'msg': msg})
+        return HttpResponse("Error processing the post request")
 
 
 

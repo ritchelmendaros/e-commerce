@@ -122,7 +122,7 @@
 
         .table th:nth-child(3),
         .table td:nth-child(3) {
-            width: 45%;
+            width: 25%;
         }
 
         .table th:nth-child(5),
@@ -132,7 +132,8 @@
 
         .table th:nth-child(2),
         .table td:nth-child(2) {
-            text-align: center;
+            text-align: left;
+            width: 45%;
         }
 
         .navbar a {
@@ -167,7 +168,6 @@
     <div class="big-div">
         <table class="table">
             <tr>
-                <th></th>
                 <th>Ticket ID</th>
                 <th>Ticket Details</th>
                 <th>Email</th>
@@ -175,9 +175,6 @@
             </tr>
             {% for ticket in tickets %}
             <tr class="table-row-link" onclick="window.location='{% url 'ticket_support_threaded' ticket.ticket_id ticket.ticket_description ticket.email ticket.issue_status%}'">
-                <td>
-                    <input type="checkbox">
-                </td>
                 <td>{{ ticket.ticket_id }}</td>
                 <td>{{ ticket.ticket_description }}</td>
                 <td>{{ ticket.email }}</td>

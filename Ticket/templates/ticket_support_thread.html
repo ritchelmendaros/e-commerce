@@ -266,12 +266,15 @@
                 </div>
                 <p class="thread-content">{{ ticket_description }}</p>
             </div>
-             <div class="thread1">
-                <div class="reply-form">
-                    <textarea placeholder="Reply..." name="replycontent"></textarea>
+            <form method="post" action="{% url 'ticket_support_threaded' ticket_id ticket_description email issue_status %}">
+                {% csrf_token %}
+                <div class="thread1">
+                    <div class="reply-form">
+                        <textarea placeholder="Reply..." name="replycontent"></textarea>
+                    </div>
                 </div>
-             </div>
-            <button>Submit</button>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </div>
 </body>
