@@ -2,19 +2,8 @@ from django.db import models
 
 
 class TicketCategory(models.Model):
-    # CATEGORY_CHOICES = [
-    #     ("P", "Payment"),
-    #     ("D", "Delayed"),
-    #     ("S", "Shipment"),
-    #     ("RF", "Refunds"),
-    #     ("RT", "Returns"),
-    #     ("AA", "Account Access"),
-    #     ("AS", "Account Security"),
-    # ]
     ticket_category_id = models.BigAutoField(primary_key=True)
-    category_name = models.CharField(max_length=50
-                                     # , choices=CATEGORY_CHOICES
-                                     )
+    category_name = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural = 'Ticket category'
