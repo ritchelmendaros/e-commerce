@@ -170,22 +170,21 @@ class CustomerThreadedDiscussionView(View):
 class SupportThreadedDiscussionView(View):
     template = 'ticket_support_thread.html'
 
-    def get(self, request, ticket_id, ticket_description, email, issue_status, username):
-        print(username)
+    def get(self, request, ticket_id, ticket_description, email, issue_status):
         cursor = connection.cursor()
-        args = [username]
-        cursor.callproc('GetFirstandLastName', args)
+        args = [ticket_id]
+        cursor.callproc('GetFullNameSupportSide', args)
         result = cursor.fetchall()
         cursor.close()
 
         fullname = result[0][0] if result else 'Default Full Name'
+        print(fullname)
 
         return render(request, self.template, {
             'ticket_id': ticket_id,
             'ticket_description': ticket_description,
             'issue_status': issue_status,
             'email': email,
-            'username': username,
             'fullname': fullname,
         })
 

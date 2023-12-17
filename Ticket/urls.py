@@ -13,6 +13,6 @@ urlpatterns = [
     path('ticket-login/', views.TicketLoginView.as_view(), name='ticket_login'),
     path('ticket-customer-threaded/<int:ticket_id>/<str:ticket_description>/<str:issue_status>/<str:username>/',
          views.CustomerThreadedDiscussionView.as_view(), name='ticket_customer_threaded'),
-    path('ticket-support-threaded/<int:ticket_id>/<str:ticket_description>/<str:email>/<str:issue_status>'
-         '/<str:username>/', views.SupportThreadedDiscussionView.as_view(), name='ticket_support_threaded'),
+    path('ticket-support-threaded/<int:ticket_id>/<str:ticket_description>/<str:email>/<str:issue_status>',
+         views.SupportThreadedDiscussionView.as_view(), name='ticket_support_threaded'),
 ]

@@ -174,7 +174,7 @@
                 <th>Status</th>
             </tr>
             {% for ticket in tickets %}
-            <tr class="table-row-link" onclick="window.location='{% url 'ticket_support_threaded' ticket.ticket_id ticket.ticket_description ticket.email ticket.issue_status username%}'">
+            <tr class="table-row-link" onclick="window.location='{% url 'ticket_support_threaded' ticket.ticket_id ticket.ticket_description ticket.email ticket.issue_status%}'">
                 <td>
                     <input type="checkbox">
                 </td>
