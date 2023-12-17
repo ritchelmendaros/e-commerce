@@ -1,14 +1,8 @@
 from django.db import connection
 from django.shortcuts import render, redirect
-from .forms import CustomerSupportFormReg, CustomerFormReg, CustomerLogin, CustomerSupportLogin, TicketLogin
-from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
 from .models import CustomerTicket, TicketCategory
-from Account.models import User
-from django.utils import timezone
-from django.http import HttpResponseNotFound, HttpResponse
-from django.contrib.auth.hashers import make_password
+from django.urls import reverse
 
 
 class CustomerSupportRegistrationView(View):
@@ -90,7 +84,8 @@ class CustomerHelpdeskView(View):
         cursor.callproc('InsertNewTicket', args)
         result = cursor.fetchall()
         cursor.close()
-        return redirect('customer_ticket_history')
+        redirect_url = reverse('customer_ticket_history', kwargs={'username': username})
+        return redirect(redirect_url)
 
 
 class TicketLoginView(View):
@@ -124,12 +119,17 @@ class TicketLoginView(View):
             return render(request, self.template, {'msg': msg})
 
 
-def customer_ticket_history(request):
-    tickets = CustomerTicket.objects.all()
-    context = {
-        'tickets': tickets
-    }
-    return render(request, 'ticket_customer_ticket_history.html', context)
+class CustomerTicketHistoryView(View):
+    template = 'ticket_customer_ticket_history.html'
+
+    def get(self, request, username):
+        cursor = connection.cursor()
+        args = [username]
+        cursor.callproc('DisplayCutomerTicketHistory', args)
+        result = cursor.fetchall()
+        cursor.close()
+        tickets = [{'ticket_id': row[0], 'ticket_description': row[1], 'issue_status': row[2]} for row in result]
+        return render(request, self.template, {'tickets': tickets})
 
 
 def customer_support_inquiry(request):

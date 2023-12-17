@@ -174,13 +174,7 @@
                 <tr>
                     <td>{{ ticket.ticket_id }}</td>
                     <td>{{ ticket.ticket_description }}</td>
-                    <td>
-                        {% if ticket.issue_status == 'O' %}
-                            Open
-                        {% elif ticket.issue_status == 'C' %}
-                            Closed
-                        {% endif %}
-                    </td>
+                    <td>{{ ticket.issue_status }}</td>
                 </tr>
             {% endfor %}
         </table>
