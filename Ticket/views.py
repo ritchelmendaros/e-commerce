@@ -107,11 +107,9 @@ class TicketLoginView(View):
             return render(request, self.template, {'msg': msg})
 
         elif result and result[0][0] == 'CS':
-            msg = 'CS'
-            return render(request, self.template, {'msg': msg})
+            return redirect('customer_support_inquiry')
 
         elif result and result[0][0] == 'CU':
-            msg = 'CU'
             return redirect('customer_helpdesk')
 
         else:
@@ -125,20 +123,23 @@ class CustomerTicketHistoryView(View):
     def get(self, request, username):
         cursor = connection.cursor()
         args = [username]
-        cursor.callproc('DisplayCutomerTicketHistory', args)
+        cursor.callproc('DisplayCustomerTicketHistory', args)
         result = cursor.fetchall()
         cursor.close()
         tickets = [{'ticket_id': row[0], 'ticket_description': row[1], 'issue_status': row[2]} for row in result]
         return render(request, self.template, {'tickets': tickets})
 
 
-def customer_support_inquiry(request):
-    tickets = CustomerTicket.objects.all()
-    context = {
-        'tickets': tickets
-    }
+class CustomerSupportInquiry(View):
+    template = 'ticket_support_inquiry.html'
 
-    return render(request, 'ticket_support_inquiry.html', context)
+    def get(self, request):
+        cursor = connection.cursor()
+        cursor.callproc('DisplayCustomerSupportTickets')
+        result = cursor.fetchall()
+        cursor.close()
+        tickets = [{'ticket_id': row[0], 'ticket_description': row[1], 'email': row[2], 'issue_status': row[3]} for row in result]
+        return render(request, self.template, {'tickets': tickets})
 
 
 
