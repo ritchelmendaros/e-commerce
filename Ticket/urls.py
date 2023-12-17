@@ -10,4 +10,6 @@ urlpatterns = [
     path('customer-ticket-history/<str:username>/', views.CustomerTicketHistoryView.as_view(),
          name='customer_ticket_history'),
     path('ticket-login/', views.TicketLoginView.as_view(), name='ticket_login'),
+    path('ticket-customer-threaded/<int:ticket_id>/<str:ticket_description>/<str:issue_status>/<str:username>/',
+         views.ThreadedDiscussionView.as_view(), name='ticket_customer_threaded'),
 ]

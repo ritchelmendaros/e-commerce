@@ -127,7 +127,8 @@ class CustomerTicketHistoryView(View):
         result = cursor.fetchall()
         cursor.close()
         tickets = [{'ticket_id': row[0], 'ticket_description': row[1], 'issue_status': row[2]} for row in result]
-        return render(request, self.template, {'tickets': tickets})
+        context = {'tickets': tickets, 'username': username}
+        return render(request, self.template, context)
 
 
 class CustomerSupportInquiry(View):
@@ -140,6 +141,30 @@ class CustomerSupportInquiry(View):
         cursor.close()
         tickets = [{'ticket_id': row[0], 'ticket_description': row[1], 'email': row[2], 'issue_status': row[3]} for row in result]
         return render(request, self.template, {'tickets': tickets})
+
+
+class ThreadedDiscussionView(View):
+    template = 'ticket_customer_thread.html'
+
+    def get(self, request, ticket_id, ticket_description, issue_status, username):
+        print(username)
+        cursor = connection.cursor()
+        args = [username]
+        cursor.callproc('GetFirstandLastName', args)
+        result = cursor.fetchall()
+        cursor.close()
+
+        # Assuming the result contains a 'fullname' column
+        fullname = result[0][0] if result else 'Default Full Name'
+
+        return render(request, self.template, {
+            'ticket_id': ticket_id,
+            'ticket_description': ticket_description,
+            'issue_status': issue_status,
+            'username': username,
+            'fullname': fullname,
+        })
+
 
 
 
