@@ -11,5 +11,5 @@ urlpatterns = [
     path('customer-helpdesk/', views.CustomerHelpdeskView.as_view(), name='customer_helpdesk'),
     path('customer-ticket-history/', views.customer_ticket_history, name='customer_ticket_history'),
     path('ticket-login/', views.TicketLoginView.as_view(), name='ticket_login'),
-    path('submit_ticket/', views.submit_ticket, name='submit_ticket'),
+    # path('submit_ticket/', views.submit_ticket, name='submit_ticket'),
 ]

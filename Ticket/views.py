@@ -115,6 +115,18 @@ class CustomerHelpdeskView(View):
         msg = categories
         return render(request, self.template, {'msg': msg})
 
+    def post(self, request):
+        username = request.POST.get('username')
+        category_name = request.POST.get('category_name')
+        description = request.POST.get('message')
+        cursor = connection.cursor()
+        args = [username, category_name, description]
+        cursor.callproc('InsertNewTicket', args)
+        result = cursor.fetchall()
+        cursor.close()
+        return redirect('customer_ticket_history')
+
+
 
 class TicketLoginView(View):
     template = 'ticket_login.html'
@@ -166,42 +178,42 @@ class TicketLoginView(View):
 #         print("Received username:", username)
 
 # saving data in database
-def submit_ticket(request):
-    if request.method == 'POST':
-        # Retrieve data from the form
-        username = request.POST.get('username')
-        category_name = request.POST.get('category_name')
-        description = request.POST.get('message')
-
-        print("Received username:", username)
-
-        try:
-            user = User.objects.get(username=username)
-            print("Found user:", user)
-        except User.DoesNotExist:
-            print("User does not exist")
-            return HttpResponseNotFound('User does not exist')
-        # Create a new CustomerTicket instance and save it to the database
-        ticket = CustomerTicket(
-            user_id=user,
-            ticket_description=description,
-            ticket_date=timezone.now(),
-            issue_status='O'
-        )
-        ticket.save()
-        # Create a new TicketCategory instance and save it to the database
-        if category_name:
-            ticket_category = TicketCategory(
-                ticket_id=ticket,
-                category_name=category_name
-            )
-            ticket_category.save()
-        else:
-            # Handle the case where category_name is empty (null)
-            return HttpResponse('Category name cannot be empty', status=400)
-        # Redirect to a success page or any other page as needed
-        return redirect('customer_ticket_history')
-    return render(request, 'ticket_customer_helpdesk.html')
+# def submit_ticket(request):
+#     if request.method == 'POST':
+#         # Retrieve data from the form
+#         username = request.POST.get('username')
+#         category_name = request.POST.get('category_name')
+#         description = request.POST.get('message')
+#
+#         print("Received username:", username)
+#
+#         try:
+#             user = User.objects.get(username=username)
+#             print("Found user:", user)
+#         except User.DoesNotExist:
+#             print("User does not exist")
+#             return HttpResponseNotFound('User does not exist')
+#         # Create a new CustomerTicket instance and save it to the database
+#         ticket = CustomerTicket(
+#             user_id=user,
+#             ticket_description=description,
+#             ticket_date=timezone.now(),
+#             issue_status='O'
+#         )
+#         ticket.save()
+#         # Create a new TicketCategory instance and save it to the database
+#         if category_name:
+#             ticket_category = TicketCategory(
+#                 ticket_id=ticket,
+#                 category_name=category_name
+#             )
+#             ticket_category.save()
+#         else:
+#             # Handle the case where category_name is empty (null)
+#             return HttpResponse('Category name cannot be empty', status=400)
+#         # Redirect to a success page or any other page as needed
+#         return redirect('customer_ticket_history')
+#     return render(request, 'ticket_customer_helpdesk.html')
 
 
 def customer_ticket_history(request):

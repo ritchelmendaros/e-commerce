@@ -210,7 +210,7 @@
             <h3>Submit a ticket</h3>
         </div>
     </div>
-    <form method="post" action="{% url 'submit_ticket' %}">
+    <form method="post">
         {% csrf_token %}
     <div class="big-div">
         <div class="left-panel">
