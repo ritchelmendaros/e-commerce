@@ -40,23 +40,6 @@ class CustomerSupportRegistrationView(View):
             return redirect('ticket_login')
 
 
-class CustomerSupportLoginView(View):
-    support_login = 'ticket_support_login.html'
-
-    def get(self, request):
-        form = CustomerSupportLogin()
-        return render(request, self.support_login, {'form': form})
-
-    def post(self, request):
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            login(request, form.get_user())
-            return redirect('customer_support_inquiry')
-        else:
-            error_message = "Incorrect username or password!"
-            return render(request, self.support_login, {'form': form, 'error_message': error_message})
-
-
 class CustomerRegistrationView(View):
     template = 'ticket_customer_registration.html'
 
@@ -86,23 +69,6 @@ class CustomerRegistrationView(View):
             return redirect('ticket_login')
 
 
-class CustomerLoginView(View):
-    customer_login = 'ticket_customer_login.html'
-
-    def get(self, request):
-        form = CustomerLogin()
-        return render(request, self.customer_login, {'form': form})
-
-    def post(self, request):
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            login(request, form.get_user())
-            return redirect('customer_helpdesk')
-        else:
-            error_message = "Incorrect username or password!"
-            return render(request, self.customer_login, {'form': form, 'error_message': error_message})
-
-
 class CustomerHelpdeskView(View):
     template = 'ticket_customer_helpdesk.html'
 
@@ -125,7 +91,6 @@ class CustomerHelpdeskView(View):
         result = cursor.fetchall()
         cursor.close()
         return redirect('customer_ticket_history')
-
 
 
 class TicketLoginView(View):
@@ -157,63 +122,6 @@ class TicketLoginView(View):
         else:
             msg = 'Unexpected result from the stored procedure'
             return render(request, self.template, {'msg': msg})
-
-
-# class submit_ticket(View):
-#     template = 'ticket_customer_helpdesk.html'
-#
-#     def get(self, request):
-#         return render(request, self.template)
-#
-#     def post(self, request):
-#         username = request.POST.get('username')
-#         category_name = request.POST.get('category_name')
-#         description = request.POST.get('message')
-#         cursor = connection.cursor()
-#         args = [username, category_name, description]
-#         cursor.callproc('CheckCredentialsLogin', args)
-#         result = cursor.fetchall()
-#         cursor.close()
-#
-#         print("Received username:", username)
-
-# saving data in database
-# def submit_ticket(request):
-#     if request.method == 'POST':
-#         # Retrieve data from the form
-#         username = request.POST.get('username')
-#         category_name = request.POST.get('category_name')
-#         description = request.POST.get('message')
-#
-#         print("Received username:", username)
-#
-#         try:
-#             user = User.objects.get(username=username)
-#             print("Found user:", user)
-#         except User.DoesNotExist:
-#             print("User does not exist")
-#             return HttpResponseNotFound('User does not exist')
-#         # Create a new CustomerTicket instance and save it to the database
-#         ticket = CustomerTicket(
-#             user_id=user,
-#             ticket_description=description,
-#             ticket_date=timezone.now(),
-#             issue_status='O'
-#         )
-#         ticket.save()
-#         # Create a new TicketCategory instance and save it to the database
-#         if category_name:
-#             ticket_category = TicketCategory(
-#                 ticket_id=ticket,
-#                 category_name=category_name
-#             )
-#             ticket_category.save()
-#         else:
-#             # Handle the case where category_name is empty (null)
-#             return HttpResponse('Category name cannot be empty', status=400)
-#         # Redirect to a success page or any other page as needed
-#         return redirect('customer_ticket_history')
-#     return render(request, 'ticket_customer_helpdesk.html')
 
 
 def customer_ticket_history(request):
