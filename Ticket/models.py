@@ -18,7 +18,7 @@ class CustomerTicket(models.Model):
         ("O", "Open"),
         ("C", "Closed"),
     ]
-    issue_status = models.CharField(max_length=2, choices=issue_choices)
+    issue_status = models.CharField(max_length=10, choices=issue_choices)
     ticket_category_id = models.ForeignKey(TicketCategory, models.SET_NULL, null=True)
 
 

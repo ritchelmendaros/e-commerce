@@ -159,12 +159,21 @@ class CustomerThreadedDiscussionView(View):
 
         fullname = result[0][0] if result else 'Default Full Name'
 
+        cursor = connection.cursor()
+        args = [ticket_id]
+        cursor.callproc('DisplayTicketResponse', args)
+        result = cursor.fetchall()
+        cursor.close()
+
+        response = result[0][0] if result else 'No response yet'
+
         return render(request, self.template, {
             'ticket_id': ticket_id,
             'ticket_description': ticket_description,
             'issue_status': issue_status,
             'username': username,
             'fullname': fullname,
+            'response': response,
         })
 
 
